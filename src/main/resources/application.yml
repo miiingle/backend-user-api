@@ -1,0 +1,22 @@
+micronaut:
+  application:
+    name: miiingleNetUserApi
+  security:
+    authentication: bearer
+    token:
+      jwt:
+        signatures:
+          secret:
+            generator:
+              secret: '"${JWT_GENERATOR_SIGNATURE_SECRET:pleaseChangeThisSecretForANewOne}"'
+  server:
+    cors:
+      enabled: true
+r2dbc:
+  datasources:
+    default:
+      url: r2dbc:postgresql://localhost:5432/postgres
+      username: postgres
+      password: ''
+      schema-generate: CREATE_DROP
+      dialect: POSTGRES
