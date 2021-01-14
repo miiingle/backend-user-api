@@ -3,4 +3,4 @@ defaultPackage: net.miiingle.user.api
 testFramework: spock
 sourceLanguage: java
 buildTool: gradle
-features: [annotation-api, app-name, data, data-r2dbc, gradle, http-client, java, java-application, liquibase, logback, lombok, netty-server, openapi, postgres, r2dbc, readme, rxjava3, security-annotations, security-jwt, shade, spock, testcontainers, yaml]
+features: [annotation-api, app-name, data, data-jpa, gradle, http-client, java, java-application, jdbc-hikari, liquibase, logback, lombok, netty-server, openapi, postgres, readme, rxjava3, security-annotations, security-jwt, shade, spock, testcontainers, yaml]
