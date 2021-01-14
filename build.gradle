@@ -33,14 +33,12 @@ dependencies {
     implementation("io.swagger.core.v3:swagger-annotations")
     compileOnly("org.projectlombok:lombok")
     implementation("io.micronaut.liquibase:micronaut-liquibase")
+    implementation("io.micronaut.sql:micronaut-jdbc-hikari")
+    implementation("io.micronaut.data:micronaut-data-hibernate-jpa")
     implementation("io.micronaut.security:micronaut-security-jwt")
     implementation("io.micronaut.rxjava3:micronaut-rxjava3")
-    implementation("io.micronaut.r2dbc:micronaut-r2dbc-core")
-    implementation("io.micronaut.r2dbc:micronaut-data-r2dbc")
     runtimeOnly("ch.qos.logback:logback-classic")
     runtimeOnly("org.postgresql:postgresql")
-    runtimeOnly("io.r2dbc:r2dbc-postgresql")
-    testRuntimeOnly("org.testcontainers:r2dbc")
     testRuntimeOnly("org.testcontainers:postgresql")
 }
 

@@ -1,13 +1,14 @@
 package net.miiingle.user.api.entity;
 
 import io.micronaut.core.annotation.Introspected;
-import io.micronaut.data.annotation.GeneratedValue;
-import io.micronaut.data.annotation.Id;
-import io.micronaut.data.annotation.MappedEntity;
 import lombok.Data;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
 @Data
-@MappedEntity
+@Entity
 @Introspected
 public class Registration {
 
