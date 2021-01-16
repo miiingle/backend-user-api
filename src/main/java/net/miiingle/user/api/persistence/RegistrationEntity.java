@@ -1,16 +1,22 @@
-package net.miiingle.user.api.entity;
+package net.miiingle.user.api.persistence;
 
 import io.micronaut.core.annotation.Introspected;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 @Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @Introspected
-public class Registration {
+public class RegistrationEntity {
 
     @Id
     @GeneratedValue
