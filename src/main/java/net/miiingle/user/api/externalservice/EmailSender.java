@@ -1,9 +1,8 @@
-package net.miiingle.user.api.service;
+package net.miiingle.user.api.externalservice;
 
 import lombok.Builder;
-import lombok.Data;
 
-public interface EmailService {
+public interface EmailSender {
 
     @Builder
     class MessageRequest {

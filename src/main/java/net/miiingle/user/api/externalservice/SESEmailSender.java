@@ -1,9 +1,9 @@
-package net.miiingle.user.api.service;
+package net.miiingle.user.api.externalservice;
 
 import javax.inject.Singleton;
 
 @Singleton
-public class SESEmailService implements EmailService {
+public class SESEmailSender implements EmailSender {
 
     @Override
     public void send(MessageRequest messageRequest) {
