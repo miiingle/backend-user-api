@@ -1,3 +1,7 @@
+# User API Server
+The backend server for processing user registrations, login, and user profile
+
+
 ## Feature testcontainers documentation
 
 - [https://www.testcontainers.org/](https://www.testcontainers.org/)
