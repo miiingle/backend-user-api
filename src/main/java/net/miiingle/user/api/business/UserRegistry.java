@@ -1,23 +1,24 @@
 package net.miiingle.user.api.business;
 
 
+import lombok.RequiredArgsConstructor;
 import net.miiingle.user.api.business.data.Registration;
 import net.miiingle.user.api.business.data.RegistrationVerification;
+import net.miiingle.user.api.business.exception.FailedToSendEmail;
 import net.miiingle.user.api.client.persistence.data.RegistrationEntity;
 import net.miiingle.user.api.client.persistence.RegistrationRepository;
 import net.miiingle.user.api.client.email.EmailSender;
 
-import javax.inject.Inject;
 import javax.inject.Singleton;
+import javax.transaction.Transactional;
 
 @Singleton
+@Transactional
+@RequiredArgsConstructor
 public class UserRegistry {
 
-    @Inject
-    RegistrationRepository repository;
-
-    @Inject
-    EmailSender emailSender;
+    private final RegistrationRepository repository;
+    private final EmailSender emailSender;
 
     /**
      * initiates the registration process of an anonymous user
@@ -27,8 +28,24 @@ public class UserRegistry {
      * @param registration
      */
     public void register(Registration registration) {
-        emailSender.send(EmailSender.MessageRequest.builder().build());
-        repository.save(RegistrationEntity.builder().email(registration.getEmail()).build());
+        repository.save(RegistrationEntity.builder()
+                .email(registration.getEmail())
+                .confirmationCode("0000")
+                .confirmed(false)
+                .build());
+
+        tryToSendConfirmationCodeFor(registration);
+    }
+
+    private void tryToSendConfirmationCodeFor(Registration registration) {
+        try {
+            emailSender.send(EmailSender.MessageRequest.builder()
+                    .emailAddress(registration.getEmail())
+                    .message("Confirmation Code: 000000")
+                    .build());
+        } catch (Exception e) {
+            throw new FailedToSendEmail();
+        }
     }
 
     /**
@@ -44,4 +61,6 @@ public class UserRegistry {
     public void verifyRegistration(RegistrationVerification verification) {
 
     }
+
+
 }
