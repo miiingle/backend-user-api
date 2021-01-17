@@ -25,4 +25,5 @@ datasources:
 jpa.default.properties.hibernate.hbm2ddl.auto: update
 jpa.entity-scan.packages: 'net.miiingle.user.api.client.persistence.data'
 
-test.ses.throwRandomException: true
+# determines the kind of email client that we are wiring: ses, logging, error
+client.email: logging

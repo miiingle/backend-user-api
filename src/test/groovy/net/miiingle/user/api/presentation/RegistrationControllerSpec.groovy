@@ -1,5 +1,6 @@
 package net.miiingle.user.api.presentation
 
+import io.micronaut.context.annotation.Property
 import io.micronaut.http.HttpRequest
 import io.micronaut.http.HttpResponse
 import io.micronaut.http.HttpStatus
@@ -12,13 +13,15 @@ import spock.lang.Specification
 import javax.inject.Inject
 
 
-@MicronautTest
+@MicronautTest(rebuildContext = true)
+@Property(name = "client.email", value = "logging")
 class RegistrationControllerSpec extends Specification {
 
     @Inject
     @Client("/")
     HttpClient client
 
+    @Property(name = "client.email", value = "logging")
     def "should register"() {
 
         given:
@@ -29,5 +32,18 @@ class RegistrationControllerSpec extends Specification {
 
         then:
         response.status == HttpStatus.OK
+    }
+
+    @Property(name = "client.email", value = "error")
+    def "should throw a generic error when an exception is encountered"() {
+
+        given:
+        HttpRequest request = HttpRequest.POST("/register", Registration.builder().build());
+
+        when:
+        HttpResponse response = client.toBlocking().exchange(request)
+
+        then:
+        response.status == HttpStatus.INTERNAL_SERVER_ERROR
     }
 }
