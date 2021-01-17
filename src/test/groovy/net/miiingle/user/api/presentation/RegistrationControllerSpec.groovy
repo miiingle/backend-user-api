@@ -13,7 +13,7 @@ import javax.inject.Inject
 
 
 @MicronautTest
-class RegistrationEntityControllerSpec extends Specification {
+class RegistrationControllerSpec extends Specification {
 
     @Inject
     @Client("/")

@@ -2,19 +2,23 @@ package net.miiingle.user.api.business;
 
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import net.miiingle.user.api.business.data.Registration;
 import net.miiingle.user.api.business.data.RegistrationVerification;
 import net.miiingle.user.api.business.exception.FailedToSendEmail;
-import net.miiingle.user.api.client.persistence.data.RegistrationEntity;
-import net.miiingle.user.api.client.persistence.RegistrationRepository;
 import net.miiingle.user.api.client.email.EmailSender;
+import net.miiingle.user.api.client.persistence.RegistrationRepository;
+import net.miiingle.user.api.client.persistence.data.RegistrationEntity;
 
 import javax.inject.Singleton;
 import javax.transaction.Transactional;
+import java.util.Optional;
 
+
+@Slf4j
+@RequiredArgsConstructor
 @Singleton
 @Transactional
-@RequiredArgsConstructor
 public class UserRegistry {
 
     private final RegistrationRepository repository;
@@ -59,7 +63,9 @@ public class UserRegistry {
      * @param verification
      */
     public void verifyRegistration(RegistrationVerification verification) {
+        Optional<RegistrationEntity> maybeRegistration = repository.findById(Long.parseLong(verification.getRegistrationId()));
 
+        log.info("Registration: {}", verification.getRegistrationId());
     }
 
 

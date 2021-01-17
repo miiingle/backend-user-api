@@ -23,3 +23,6 @@ datasources:
     dialect: POSTGRES
 
 jpa.default.properties.hibernate.hbm2ddl.auto: update
+jpa.entity-scan.packages: 'net.miiingle.user.api.client.persistence.data'
+
+test.ses.throwRandomException: true
