@@ -1,4 +1,4 @@
-package net.miiingle.user.api.business;
+package net.miiingle.user.api.business.data;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

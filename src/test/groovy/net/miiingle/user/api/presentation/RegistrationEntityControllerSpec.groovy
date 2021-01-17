@@ -6,7 +6,7 @@ import io.micronaut.http.HttpStatus
 import io.micronaut.http.client.HttpClient
 import io.micronaut.http.client.annotation.Client
 import io.micronaut.test.extensions.spock.annotation.MicronautTest
-import net.miiingle.user.api.business.Registration
+import net.miiingle.user.api.business.data.Registration
 import spock.lang.Specification
 
 import javax.inject.Inject

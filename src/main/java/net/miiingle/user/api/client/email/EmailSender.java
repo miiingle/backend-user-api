@@ -1,4 +1,4 @@
-package net.miiingle.user.api.externalservice;
+package net.miiingle.user.api.client.email;
 
 import lombok.Builder;
 

@@ -1,15 +1,17 @@
 package net.miiingle.user.api.business;
 
 
-import net.miiingle.user.api.persistence.RegistrationEntity;
-import net.miiingle.user.api.persistence.RegistrationRepository;
-import net.miiingle.user.api.externalservice.EmailSender;
+import net.miiingle.user.api.business.data.Registration;
+import net.miiingle.user.api.business.data.RegistrationVerification;
+import net.miiingle.user.api.client.persistence.data.RegistrationEntity;
+import net.miiingle.user.api.client.persistence.RegistrationRepository;
+import net.miiingle.user.api.client.email.EmailSender;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
 @Singleton
-public class RegistrationManager {
+public class UserRegistry {
 
     @Inject
     RegistrationRepository repository;

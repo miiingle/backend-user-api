@@ -1,4 +1,6 @@
-package net.miiingle.user.api.externalservice;
+package net.miiingle.user.api.client.email;
+
+import net.miiingle.user.api.client.email.EmailSender;
 
 import javax.inject.Singleton;
 

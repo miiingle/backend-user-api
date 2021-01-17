@@ -1,4 +1,4 @@
-package net.miiingle.user.api.persistence;
+package net.miiingle.user.api.client.persistence.data;
 
 import io.micronaut.core.annotation.Introspected;
 import lombok.AllArgsConstructor;
