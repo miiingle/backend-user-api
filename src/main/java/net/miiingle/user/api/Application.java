@@ -1,14 +1,30 @@
 package net.miiingle.user.api;
 
 import io.micronaut.runtime.Micronaut;
-import io.swagger.v3.oas.annotations.*;
-import io.swagger.v3.oas.annotations.info.*;
+import io.swagger.v3.oas.annotations.OpenAPIDefinition;
+import io.swagger.v3.oas.annotations.info.Info;
+import io.swagger.v3.oas.annotations.servers.Server;
 
 @OpenAPIDefinition(
-    info = @Info(
-            title = "miiingle-net-user-api",
-            version = "0.0"
-    )
+        info = @Info(
+                title = "Miiingle.NET User API",
+                version = "1.0-BETA",
+                description = "API for regular users using the Miiingle.NET social media platform"
+        ),
+        servers = {
+                @Server(
+                        description = "Local",
+                        url = "http://localhost:8080"
+                ),
+                @Server(
+                        description = "Development",
+                        url = "http://api.dev.miiingle.net"
+                ),
+                @Server(
+                        description = "Production",
+                        url = "https://api.miiingle.net"
+                )
+        }
 )
 public class Application {
 
