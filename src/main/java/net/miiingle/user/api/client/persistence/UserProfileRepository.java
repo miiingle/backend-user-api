@@ -2,9 +2,8 @@ package net.miiingle.user.api.client.persistence;
 
 import io.micronaut.data.annotation.Repository;
 import io.micronaut.data.repository.PageableRepository;
-import net.miiingle.user.api.client.persistence.data.Registration;
+import net.miiingle.user.api.client.persistence.data.UserProfile;
 
 @Repository
-public interface RegistrationRepository extends PageableRepository<Registration, Long> {
-
+public interface UserProfileRepository extends PageableRepository<UserProfile, String> {
 }

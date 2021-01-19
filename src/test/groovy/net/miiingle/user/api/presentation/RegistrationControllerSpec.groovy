@@ -7,10 +7,13 @@ import io.micronaut.http.HttpStatus
 import io.micronaut.http.client.HttpClient
 import io.micronaut.http.client.annotation.Client
 import io.micronaut.test.extensions.spock.annotation.MicronautTest
-import net.miiingle.user.api.business.data.Registration
+import net.miiingle.user.api.business.data.RegistrationRequest
+import net.miiingle.user.api.business.data.RegistrationVerification
+import net.miiingle.user.api.client.persistence.data.Registration
 import spock.lang.Specification
 
 import javax.inject.Inject
+import javax.persistence.EntityManager
 
 
 @MicronautTest
@@ -21,10 +24,13 @@ class RegistrationControllerSpec extends Specification {
     @Client("/")
     HttpClient client
 
+    @Inject
+    EntityManager em
+
     def "should register"() {
 
         given:
-        HttpRequest request = HttpRequest.POST("/register", Registration.builder()
+        HttpRequest request = HttpRequest.POST("/registration", RegistrationRequest.builder()
                 .name("Test Test")
                 .email("test@miiingle.net")
                 .build())
@@ -34,6 +40,34 @@ class RegistrationControllerSpec extends Specification {
 
         then:
         response.status == HttpStatus.CREATED
+    }
+
+    def "should confirm registration"() {
+
+        given:
+        var registrationId = 1
+        var confirmationCode = "0000000"
+        Registration registration = Registration.builder()
+                .id(registrationId)
+                .confirmationCode(confirmationCode)
+                .confirmed(false)
+                .build()
+        em.merge(registration)
+        em.getTransaction().commit()
+
+        and:
+        RegistrationVerification verification = RegistrationVerification.builder()
+                .registrationId(registrationId.toString())
+                .code(confirmationCode)
+                .build()
+        HttpRequest request = HttpRequest.PUT("/registration/verification", verification)
+
+        when:
+        HttpResponse response = client.toBlocking().exchange(request)
+
+        then:
+        response.status == HttpStatus.OK
+
     }
 
 }

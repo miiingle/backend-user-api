@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Introspected
-public class Registration {
+public class RegistrationRequest {
 
     String email;
     String name;

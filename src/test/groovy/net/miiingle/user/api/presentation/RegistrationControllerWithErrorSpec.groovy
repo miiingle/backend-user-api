@@ -7,7 +7,7 @@ import io.micronaut.http.client.HttpClient
 import io.micronaut.http.client.annotation.Client
 import io.micronaut.http.client.exceptions.HttpClientResponseException
 import io.micronaut.test.extensions.spock.annotation.MicronautTest
-import net.miiingle.user.api.business.data.Registration
+import net.miiingle.user.api.business.data.RegistrationRequest
 import spock.lang.Specification
 
 import javax.inject.Inject
@@ -23,7 +23,7 @@ class RegistrationControllerWithErrorSpec extends Specification {
     def "should throw a generic error when an exception is encountered"() {
 
         given:
-        HttpRequest request = HttpRequest.POST("/register", Registration.builder().build())
+        HttpRequest request = HttpRequest.POST("/registration", RegistrationRequest.builder().build())
 
         when:
         client.toBlocking().exchange(request)

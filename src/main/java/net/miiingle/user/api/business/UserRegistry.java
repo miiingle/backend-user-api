@@ -3,12 +3,13 @@ package net.miiingle.user.api.business;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import net.miiingle.user.api.business.data.Registration;
+import net.miiingle.user.api.business.data.RegistrationRequest;
 import net.miiingle.user.api.business.data.RegistrationVerification;
 import net.miiingle.user.api.business.exception.FailedToSendEmail;
+import net.miiingle.user.api.business.exception.InvalidVerification;
 import net.miiingle.user.api.client.email.EmailSender;
 import net.miiingle.user.api.client.persistence.RegistrationRepository;
-import net.miiingle.user.api.client.persistence.data.RegistrationEntity;
+import net.miiingle.user.api.client.persistence.data.Registration;
 
 import javax.inject.Singleton;
 import javax.transaction.Transactional;
@@ -29,22 +30,22 @@ public class UserRegistry {
      * a registration does not automatically create an account
      * you need to verify a registration
      *
-     * @param registration
+     * @param registrationRequest
      */
-    public void register(Registration registration) {
-        repository.save(RegistrationEntity.builder()
-                .email(registration.getEmail())
+    public void register(RegistrationRequest registrationRequest) {
+        repository.save(Registration.builder()
+                .email(registrationRequest.getEmail())
                 .confirmationCode("0000")
                 .confirmed(false)
                 .build());
 
-        tryToSendConfirmationCodeFor(registration);
+        tryToSendConfirmationCodeFor(registrationRequest);
     }
 
-    private void tryToSendConfirmationCodeFor(Registration registration) {
+    private void tryToSendConfirmationCodeFor(RegistrationRequest registrationRequest) {
         try {
             emailSender.send(EmailSender.MessageRequest.builder()
-                    .emailAddress(registration.getEmail())
+                    .emailAddress(registrationRequest.getEmail())
                     .message("Confirmation Code: 000000")
                     .build());
         } catch (Exception e) {
@@ -62,11 +63,32 @@ public class UserRegistry {
      *
      * @param verification
      */
-    public void verifyRegistration(RegistrationVerification verification) {
-        Optional<RegistrationEntity> maybeRegistration = repository.findById(Long.parseLong(verification.getRegistrationId()));
+    public void verify(RegistrationVerification verification) {
+
+        var registration = findValidRegistrationOrError(verification);
+
+        if (verification.isInvalidFor(registration)) {
+            throw new InvalidVerification();
+        }
+
+        confirm(registration);
 
         log.info("Registration: {}", verification.getRegistrationId());
     }
 
+    private void confirm(Registration registration) {
+        registration.setConfirmed(true);
+        repository.save(registration);
+    }
+
+    private Registration findValidRegistrationOrError(RegistrationVerification verification) {
+        Optional<Registration> maybeRegistration = repository.findById(Long.parseLong(verification.getRegistrationId()));
+
+        if (maybeRegistration.isEmpty()) {
+            throw new InvalidVerification();
+        }
+
+        return maybeRegistration.get();
+    }
 
 }
