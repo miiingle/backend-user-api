@@ -22,7 +22,9 @@ public class Registration {
     @GeneratedValue
     Long id;
 
+    String name;
     String email;
+
     String confirmationCode;
     Boolean confirmed;
 }

@@ -9,11 +9,16 @@ import net.miiingle.user.api.business.exception.FailedToSendEmail;
 import net.miiingle.user.api.business.exception.InvalidVerification;
 import net.miiingle.user.api.client.email.EmailSender;
 import net.miiingle.user.api.client.persistence.RegistrationRepository;
+import net.miiingle.user.api.client.persistence.UserCredentialRepository;
+import net.miiingle.user.api.client.persistence.UserProfileRepository;
 import net.miiingle.user.api.client.persistence.data.Registration;
+import net.miiingle.user.api.client.persistence.data.UserCredential;
+import net.miiingle.user.api.client.persistence.data.UserProfile;
 
 import javax.inject.Singleton;
 import javax.transaction.Transactional;
 import java.util.Optional;
+import java.util.UUID;
 
 
 @Slf4j
@@ -22,7 +27,9 @@ import java.util.Optional;
 @Transactional
 public class UserRegistry {
 
-    private final RegistrationRepository repository;
+    private final RegistrationRepository registrationRepository;
+    private final UserCredentialRepository userCredentialRepository;
+    private final UserProfileRepository userProfileRepository;
     private final EmailSender emailSender;
 
     /**
@@ -30,27 +37,14 @@ public class UserRegistry {
      * a registration does not automatically create an account
      * you need to verify a registration
      *
-     * @param registrationRequest
+     * @param registrationRequest a request to start a membership
      */
     public void register(RegistrationRequest registrationRequest) {
-        repository.save(Registration.builder()
-                .email(registrationRequest.getEmail())
-                .confirmationCode("0000")
-                .confirmed(false)
-                .build());
+        String confirmationCode = "000000";
 
-        tryToSendConfirmationCodeFor(registrationRequest);
-    }
+        storeRegistration(registrationRequest, confirmationCode);
 
-    private void tryToSendConfirmationCodeFor(RegistrationRequest registrationRequest) {
-        try {
-            emailSender.send(EmailSender.MessageRequest.builder()
-                    .emailAddress(registrationRequest.getEmail())
-                    .message("Confirmation Code: 000000")
-                    .build());
-        } catch (Exception e) {
-            throw new FailedToSendEmail();
-        }
+        tryToSendConfirmationCodeFor(registrationRequest, confirmationCode);
     }
 
     /**
@@ -67,28 +61,88 @@ public class UserRegistry {
 
         var registration = findValidRegistrationOrError(verification);
 
-        if (verification.isInvalidFor(registration)) {
-            throw new InvalidVerification();
-        }
-
         confirm(registration);
 
-        log.info("Registration: {}", verification.getRegistrationId());
+        var userID = generateUserId();
+        var userPassword = generatePassword();
+        var email = registration.getEmail();
+
+        createNewProfile(registration, userID);
+        createCredentials(userID, userPassword, email);
+
+        sendPasswordToUserEmail(email, String.format("Hello %s, Your temporary password is %s", email, userPassword));
+    }
+
+    private void tryToSendConfirmationCodeFor(RegistrationRequest registrationRequest, String confirmationCode) {
+        try {
+            emailSender.send(EmailSender.MessageRequest.builder()
+                    .emailAddress(registrationRequest.getEmail())
+                    .message("Confirmation Code: " + confirmationCode)
+                    .build());
+        } catch (Exception e) {
+            throw new FailedToSendEmail();
+        }
+    }
+
+    private void storeRegistration(RegistrationRequest registrationRequest, String confirmationCode) {
+        registrationRepository.save(Registration.builder()
+                .email(registrationRequest.getEmail())
+                .name(registrationRequest.getName())
+                .confirmationCode(confirmationCode)
+                .confirmed(false)
+                .build());
+    }
+
+    private void sendPasswordToUserEmail(String email, String format) {
+        emailSender.send(EmailSender.MessageRequest.builder()
+                .emailAddress(email)
+                .message(format)
+                .build());
+    }
+
+    private void createCredentials(String userID, String userPassword, String email) {
+        userCredentialRepository.save(UserCredential.builder()
+                .username(email)
+                .password(userPassword)
+                .internalId(userID)
+                .build());
+    }
+
+    private void createNewProfile(Registration registration, String userID) {
+        userProfileRepository.save(UserProfile.builder()
+                .id(userID)
+                .email(registration.getEmail())
+                .name(registration.getName())
+                .build());
     }
 
     private void confirm(Registration registration) {
         registration.setConfirmed(true);
-        repository.save(registration);
+        registrationRepository.save(registration);
     }
 
     private Registration findValidRegistrationOrError(RegistrationVerification verification) {
-        Optional<Registration> maybeRegistration = repository.findById(Long.parseLong(verification.getRegistrationId()));
+        Optional<Registration> maybeRegistration = registrationRepository.findById(Long.parseLong(verification.getRegistrationId()));
 
         if (maybeRegistration.isEmpty()) {
             throw new InvalidVerification();
         }
 
-        return maybeRegistration.get();
+        var registration = maybeRegistration.get();
+
+        if (verification.isInvalidFor(registration)) {
+            throw new InvalidVerification();
+        }
+
+        return registration;
+    }
+
+    private String generateUserId() {
+        return UUID.randomUUID().toString();
+    }
+
+    private String generatePassword() {
+        return "test1234";
     }
 
 }
