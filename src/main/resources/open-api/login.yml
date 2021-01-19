@@ -1,0 +1,30 @@
+openapi: 3.0.1
+info:
+  title: Login
+  version: v1.0
+paths:
+  /login:
+    post:
+      summary: Login
+      tags:
+        - security
+      description: "Login"
+      operationId: login
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UsernamePasswordCredentials'
+        required: true
+      responses:
+        "200":
+          description: Login Success
+components:
+  schemas:
+    UsernamePasswordCredentials:
+      type: object
+      properties:
+        username:
+          type: string
+        password:
+          type: string

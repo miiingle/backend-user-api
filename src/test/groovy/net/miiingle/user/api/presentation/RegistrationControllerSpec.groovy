@@ -24,13 +24,16 @@ class RegistrationControllerSpec extends Specification {
     def "should register"() {
 
         given:
-        HttpRequest request = HttpRequest.POST("/register", Registration.builder().build())
+        HttpRequest request = HttpRequest.POST("/register", Registration.builder()
+                .name("Test Test")
+                .email("test@miiingle.net")
+                .build())
 
         when:
         HttpResponse response = client.toBlocking().exchange(request)
 
         then:
-        response.status == HttpStatus.OK
+        response.status == HttpStatus.CREATED
     }
 
 }
