@@ -60,7 +60,7 @@ class RegistrationControllerSpec extends Specification {
                 .registrationId(registrationId.toString())
                 .code(confirmationCode)
                 .build()
-        HttpRequest request = HttpRequest.PUT("/registration/verification", verification)
+        HttpRequest request = HttpRequest.GET("/registration/$registrationId/verification?code=$confirmationCode")
 
         when:
         HttpResponse response = client.toBlocking().exchange(request)

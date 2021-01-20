@@ -13,7 +13,7 @@ public class LoggingEmailSender implements EmailSender {
 
     @Override
     public void send(MessageRequest messageRequest) {
-        log.info("Send Email: {} : {}", messageRequest.getEmailAddress(), messageRequest.getMessage());
+        log.info("\n\nEmail: {} \nMessage: {}\n", messageRequest.getEmailAddress(), messageRequest.getMessage());
     }
 
 }

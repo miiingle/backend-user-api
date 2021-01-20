@@ -42,9 +42,9 @@ public class UserRegistry {
     public void register(RegistrationRequest registrationRequest) {
         String confirmationCode = "000000";
 
-        storeRegistration(registrationRequest, confirmationCode);
+        var createdRegistration = storeRegistration(registrationRequest, confirmationCode);
 
-        tryToSendConfirmationCodeFor(registrationRequest, confirmationCode);
+        tryToSendConfirmationCodeFor(createdRegistration, confirmationCode);
     }
 
     /**
@@ -55,7 +55,7 @@ public class UserRegistry {
      * - it was already verified
      * - incorrect verification code
      *
-     * @param verification
+     * @param verification a request to confirm a registration and create a new account
      */
     public void verify(RegistrationVerification verification) {
 
@@ -70,22 +70,22 @@ public class UserRegistry {
         createNewProfile(registration, userID);
         createCredentials(userID, userPassword, email);
 
-        sendPasswordToUserEmail(email, String.format("Hello %s, Your temporary password is %s", email, userPassword));
+        sendPasswordToUserEmail(email, String.format("Hello %s, Your temporary password is %s", registration.getName(), userPassword));
     }
 
-    private void tryToSendConfirmationCodeFor(RegistrationRequest registrationRequest, String confirmationCode) {
+    private void tryToSendConfirmationCodeFor(Registration registration, String confirmationCode) {
         try {
             emailSender.send(EmailSender.MessageRequest.builder()
-                    .emailAddress(registrationRequest.getEmail())
-                    .message("Confirmation Code: " + confirmationCode)
+                    .emailAddress(registration.getEmail())
+                    .message("Registration " + registration.getId() + " | Confirmation Code: " + confirmationCode)
                     .build());
         } catch (Exception e) {
             throw new FailedToSendEmail();
         }
     }
 
-    private void storeRegistration(RegistrationRequest registrationRequest, String confirmationCode) {
-        registrationRepository.save(Registration.builder()
+    private Registration storeRegistration(RegistrationRequest registrationRequest, String confirmationCode) {
+        return registrationRepository.save(Registration.builder()
                 .email(registrationRequest.getEmail())
                 .name(registrationRequest.getName())
                 .confirmationCode(confirmationCode)

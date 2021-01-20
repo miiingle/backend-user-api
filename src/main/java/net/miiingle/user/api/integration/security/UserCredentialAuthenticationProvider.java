@@ -6,7 +6,7 @@ import io.micronaut.security.authentication.*;
 import io.reactivex.BackpressureStrategy;
 import io.reactivex.Flowable;
 import lombok.RequiredArgsConstructor;
-import net.miiingle.user.api.client.persistence.UserCredentialRepository;
+import net.miiingle.user.api.business.UserRegistry;
 import org.reactivestreams.Publisher;
 
 import javax.inject.Singleton;
@@ -17,7 +17,7 @@ import java.util.Collections;
 @Singleton
 public class UserCredentialAuthenticationProvider implements AuthenticationProvider {
 
-    private final UserCredentialRepository userCredentialRepository;
+    private final UserRegistry userRegistry;
 
     @Override
     public Publisher<AuthenticationResponse> authenticate(@Nullable HttpRequest<?> httpRequest, AuthenticationRequest<?, ?> authenticationRequest) {

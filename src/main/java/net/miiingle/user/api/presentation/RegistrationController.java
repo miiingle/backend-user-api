@@ -8,7 +8,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import net.miiingle.user.api.business.UserRegistry;
 import net.miiingle.user.api.business.data.RegistrationRequest;
-import net.miiingle.user.api.business.data.RegistrationVerification;
+import net.miiingle.user.api.presentation.data.RegistrationVerificationDTO;
 
 @RequiredArgsConstructor
 @Secured(SecurityRule.IS_ANONYMOUS)
@@ -35,9 +35,9 @@ public class RegistrationController {
             description = "Starts the process of a user registration. At this point no user account is created, yet",
             tags = {"Registration"}
     )
-    @Put("/registration/verification")
+    @Get("/registration/{registrationId}/verification{?code}")
     @Status(HttpStatus.OK)
-    public void verifyRegistration(@Body RegistrationVerification verification) {
-        userRegistry.verify(verification);
+    public void verifyRegistration(@RequestBean RegistrationVerificationDTO verification) {
+        userRegistry.verify(verification.convert());
     }
 }
