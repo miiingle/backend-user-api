@@ -23,7 +23,7 @@ class RegistrationControllerWithErrorSpec extends Specification {
     def "should throw a generic error when an exception is encountered"() {
 
         given:
-        HttpRequest request = HttpRequest.POST("/registration", RegistrationRequest.builder().build())
+        HttpRequest request = HttpRequest.POST("/registrations", RegistrationRequest.builder().build())
 
         when:
         client.toBlocking().exchange(request)

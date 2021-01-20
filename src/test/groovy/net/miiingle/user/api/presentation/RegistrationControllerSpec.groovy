@@ -30,7 +30,7 @@ class RegistrationControllerSpec extends Specification {
     def "should register"() {
 
         given:
-        HttpRequest request = HttpRequest.POST("/registration", RegistrationRequest.builder()
+        HttpRequest request = HttpRequest.POST("/registrations", RegistrationRequest.builder()
                 .name("Test Test")
                 .email("test@miiingle.net")
                 .build())
@@ -60,7 +60,7 @@ class RegistrationControllerSpec extends Specification {
                 .registrationId(registrationId.toString())
                 .code(confirmationCode)
                 .build()
-        HttpRequest request = HttpRequest.GET("/registration/$registrationId/verification?code=$confirmationCode")
+        HttpRequest request = HttpRequest.GET("/registrations/$registrationId/verify?code=$confirmationCode")
 
         when:
         HttpResponse response = client.toBlocking().exchange(request)
