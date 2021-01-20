@@ -6,6 +6,7 @@ import io.swagger.v3.oas.annotations.enums.SecuritySchemeType;
 import io.swagger.v3.oas.annotations.info.Info;
 import io.swagger.v3.oas.annotations.security.SecurityScheme;
 import io.swagger.v3.oas.annotations.servers.Server;
+import io.swagger.v3.oas.annotations.tags.Tag;
 
 @SecurityScheme(
         name = "BearerAuth",
@@ -31,6 +32,20 @@ import io.swagger.v3.oas.annotations.servers.Server;
                 @Server(
                         description = "Production",
                         url = "https://api.miiingle.net"
+                )
+        },
+        tags = {
+                @Tag(
+                        name = "Authentication",
+                        description = "Login, logout, refresh token"
+                ),
+                @Tag(
+                        name = "Registration",
+                        description = "Before claiming a user membership"
+                ),
+                @Tag(
+                        name = "User",
+                        description = "User profile, account, posts, and friends"
                 )
         }
 )
