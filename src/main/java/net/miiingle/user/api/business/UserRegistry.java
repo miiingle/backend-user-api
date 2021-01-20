@@ -7,7 +7,7 @@ import net.miiingle.user.api.business.data.RegistrationRequest;
 import net.miiingle.user.api.business.data.RegistrationVerification;
 import net.miiingle.user.api.business.exception.FailedToSendEmail;
 import net.miiingle.user.api.business.exception.InvalidVerification;
-import net.miiingle.user.api.client.email.EmailSender;
+import net.miiingle.user.api.business.service.EmailSender;
 import net.miiingle.user.api.client.persistence.RegistrationRepository;
 import net.miiingle.user.api.client.persistence.UserCredentialRepository;
 import net.miiingle.user.api.client.persistence.UserProfileRepository;
