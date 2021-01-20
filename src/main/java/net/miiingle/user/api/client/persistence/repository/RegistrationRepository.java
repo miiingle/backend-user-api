@@ -1,4 +1,4 @@
-package net.miiingle.user.api.client.persistence;
+package net.miiingle.user.api.client.persistence.repository;
 
 import io.micronaut.data.annotation.Repository;
 import io.micronaut.data.repository.PageableRepository;
