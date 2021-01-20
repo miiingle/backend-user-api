@@ -76,6 +76,13 @@ public class UserRegistry {
         sendPasswordToUserEmail(email, String.format("Hello %s, Your temporary password is %s", registration.getName(), userPassword));
     }
 
+    /**
+     * returns the user uniquely identified by the email
+     *
+     * @param email the unique identifier / login username
+     *
+     * @return a user if it is present
+     */
     public Optional<User> fetchUserWith(String email) {
         return userStore.findByEmail(email);
     }

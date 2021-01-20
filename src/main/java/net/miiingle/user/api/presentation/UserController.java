@@ -5,6 +5,7 @@ import io.micronaut.http.annotation.Controller;
 import io.micronaut.http.annotation.Get;
 import io.micronaut.http.annotation.Status;
 import io.micronaut.security.annotation.Secured;
+import io.micronaut.security.authentication.Authentication;
 import io.micronaut.security.rules.SecurityRule;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
@@ -28,7 +29,7 @@ public class UserController {
     )
     @Get("/me")
     @Status(HttpStatus.OK)
-    public User showMyProfile() {
-        return null;
+    public User showMyProfile(Authentication authentication) {
+        return userRegistry.fetchUserWith(authentication.getName()).orElseThrow();
     }
 }
