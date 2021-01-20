@@ -10,6 +10,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.RequiredArgsConstructor;
 import net.miiingle.user.api.business.UserRegistry;
+import net.miiingle.user.api.business.data.User;
 
 @SecurityRequirement(name = "BearerAuth")
 @RequiredArgsConstructor
@@ -27,7 +28,7 @@ public class UserController {
     )
     @Get("/me")
     @Status(HttpStatus.OK)
-    public String showMyProfile() {
-        return "test";
+    public User showMyProfile() {
+        return null;
     }
 }

@@ -19,6 +19,10 @@ paths:
       responses:
         "200":
           description: Login Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserAccess'
 components:
   schemas:
     UsernamePasswordCredentials:
@@ -28,3 +32,18 @@ components:
           type: string
         password:
           type: string
+    UserAccess:
+      type: object
+      properties:
+        username:
+          type: string
+          example: test@miiingle.net
+        access_token:
+          type: string
+          example: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0QHRlc3QuY29tIiwibmJmIjoxNjExMTMzMzE0LCJyb2xlcyI6W10sImlzcyI6Im1paWluZ2xlLW5ldC11c2VyLWFwaSIsImV4cCI6MTYxMTEzNjkxNCwiaWF0IjoxNjExMTMzMzE0fQ.7UHod5TfGS2nb_Qkv0MuxNeGftNMLhjyVrusHvVgCtY
+        token_type:
+          type: string
+          example: Bearer
+        expires_in:
+          type: number
+          example: 3600
