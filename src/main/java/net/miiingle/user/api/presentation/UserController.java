@@ -22,7 +22,7 @@ public class UserController {
     private final UserRegistry userRegistry;
 
     @Operation(
-            operationId = "showMyProfile",
+            operationId = "userMyProfile",
             summary = "My Profile",
             description = "Shows the profile of the current user",
             tags = {"User"}

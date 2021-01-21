@@ -30,8 +30,10 @@ components:
       properties:
         username:
           type: string
+          example: test@miiingle.net
         password:
           type: string
+          example: s3cr3T.MiiinglE
     UserAccess:
       type: object
       properties:
