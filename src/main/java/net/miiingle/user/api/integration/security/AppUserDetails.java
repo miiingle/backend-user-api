@@ -1,7 +1,7 @@
 package net.miiingle.user.api.integration.security;
 
 import io.micronaut.security.authentication.UserDetails;
-import net.miiingle.user.api.business.data.User;
+import net.miiingle.user.api.business.core.data.User;
 
 import java.util.Collections;
 

@@ -1,6 +1,6 @@
-package net.miiingle.user.api.business.service;
+package net.miiingle.user.api.business.providers;
 
-import net.miiingle.user.api.business.data.User;
+import net.miiingle.user.api.business.core.data.User;
 
 import java.util.Optional;
 

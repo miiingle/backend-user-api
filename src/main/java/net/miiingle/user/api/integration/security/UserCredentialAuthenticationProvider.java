@@ -8,7 +8,7 @@ import io.reactivex.BackpressureStrategy;
 import io.reactivex.Flowable;
 import io.reactivex.FlowableOnSubscribe;
 import lombok.RequiredArgsConstructor;
-import net.miiingle.user.api.business.UserRegistry;
+import net.miiingle.user.api.business.core.UserRegistry;
 import org.reactivestreams.Publisher;
 
 import javax.inject.Singleton;

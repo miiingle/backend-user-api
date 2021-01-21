@@ -1,8 +1,8 @@
 package net.miiingle.user.api.client.persistence;
 
 import lombok.RequiredArgsConstructor;
-import net.miiingle.user.api.business.data.User;
-import net.miiingle.user.api.business.service.UserStore;
+import net.miiingle.user.api.business.core.data.User;
+import net.miiingle.user.api.business.providers.UserStore;
 import net.miiingle.user.api.client.persistence.data.UserCredential;
 import net.miiingle.user.api.client.persistence.data.UserProfile;
 import net.miiingle.user.api.client.persistence.repository.UserCredentialRepository;

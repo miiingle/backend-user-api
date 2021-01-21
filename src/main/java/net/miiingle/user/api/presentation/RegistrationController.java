@@ -6,8 +6,8 @@ import io.micronaut.security.annotation.Secured;
 import io.micronaut.security.rules.SecurityRule;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
-import net.miiingle.user.api.business.UserRegistry;
-import net.miiingle.user.api.business.data.RegistrationRequest;
+import net.miiingle.user.api.business.core.UserRegistry;
+import net.miiingle.user.api.business.core.data.RegistrationRequest;
 import net.miiingle.user.api.presentation.data.RegistrationVerificationDTO;
 
 @RequiredArgsConstructor

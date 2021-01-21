@@ -7,8 +7,8 @@ import io.micronaut.http.HttpStatus
 import io.micronaut.http.client.HttpClient
 import io.micronaut.http.client.annotation.Client
 import io.micronaut.test.extensions.spock.annotation.MicronautTest
-import net.miiingle.user.api.business.data.RegistrationRequest
-import net.miiingle.user.api.business.data.RegistrationVerification
+import net.miiingle.user.api.business.core.data.RegistrationRequest
+import net.miiingle.user.api.business.core.data.RegistrationVerification
 import net.miiingle.user.api.client.persistence.data.Registration
 import spock.lang.Specification
 

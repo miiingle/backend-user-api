@@ -1,15 +1,15 @@
-package net.miiingle.user.api.business;
+package net.miiingle.user.api.business.core;
 
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import net.miiingle.user.api.business.data.RegistrationRequest;
-import net.miiingle.user.api.business.data.RegistrationVerification;
-import net.miiingle.user.api.business.data.User;
-import net.miiingle.user.api.business.exception.FailedToSendEmail;
-import net.miiingle.user.api.business.exception.InvalidVerification;
-import net.miiingle.user.api.business.service.EmailSender;
-import net.miiingle.user.api.business.service.UserStore;
+import net.miiingle.user.api.business.core.data.RegistrationRequest;
+import net.miiingle.user.api.business.core.data.RegistrationVerification;
+import net.miiingle.user.api.business.core.data.User;
+import net.miiingle.user.api.business.core.exception.FailedToSendEmail;
+import net.miiingle.user.api.business.core.exception.InvalidVerification;
+import net.miiingle.user.api.business.providers.EmailSender;
+import net.miiingle.user.api.business.providers.UserStore;
 import net.miiingle.user.api.client.persistence.repository.RegistrationRepository;
 import net.miiingle.user.api.client.persistence.repository.UserCredentialRepository;
 import net.miiingle.user.api.client.persistence.repository.UserProfileRepository;

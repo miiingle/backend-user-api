@@ -1,4 +1,4 @@
-package net.miiingle.user.api.business.data;
+package net.miiingle.user.api.business.core.data;
 
 import io.micronaut.core.annotation.Introspected;
 import lombok.AllArgsConstructor;

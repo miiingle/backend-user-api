@@ -10,8 +10,8 @@ import io.micronaut.security.rules.SecurityRule;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.RequiredArgsConstructor;
-import net.miiingle.user.api.business.UserRegistry;
-import net.miiingle.user.api.business.data.User;
+import net.miiingle.user.api.business.core.UserRegistry;
+import net.miiingle.user.api.business.core.data.User;
 
 @SecurityRequirement(name = "BearerAuth")
 @RequiredArgsConstructor

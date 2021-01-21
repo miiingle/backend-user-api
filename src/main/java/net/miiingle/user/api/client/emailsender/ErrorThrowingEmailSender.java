@@ -2,7 +2,7 @@ package net.miiingle.user.api.client.emailsender;
 
 import io.micronaut.context.annotation.Requires;
 import lombok.extern.slf4j.Slf4j;
-import net.miiingle.user.api.business.service.EmailSender;
+import net.miiingle.user.api.business.providers.EmailSender;
 
 import javax.inject.Singleton;
 

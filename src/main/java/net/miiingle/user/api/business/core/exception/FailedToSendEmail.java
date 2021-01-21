@@ -1,4 +1,4 @@
-package net.miiingle.user.api.business.exception;
+package net.miiingle.user.api.business.core.exception;
 
 public class FailedToSendEmail extends RuntimeException {
 
