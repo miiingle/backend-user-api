@@ -1,0 +1,17 @@
+version: '3.7'
+services:
+  postgres:
+    image: postgres:11.6-alpine
+    environment:
+      POSTGRES_USER: testfull
+      POSTGRES_PASSWORD: testfullpass123
+    ports:
+      - 5432:5432
+  user-api:
+    image: 'startupbuilder/miiingle-net-user-api:latest'
+    environment:
+      DATASOURCES_DEFAULT_URL: jdbc:postgresql://postgres:5432/postgres?currentSchema=public
+      DATASOURCES_DEFAULT_USERNAME: testfull
+      DATASOURCES_DEFAULT_PASSWORD: testfullpass123
+    ports:
+      - 8080:8080
