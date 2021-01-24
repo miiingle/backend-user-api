@@ -15,10 +15,10 @@ spec:
         app: miiingle
     spec:
       containers:
-        name: miiingle-net-user-api
+      - name: miiingle-net-user-api
         image: startupbuilder/miiingle-net-user-api:latest
         imagePullPolicy: Always
-        - env:
+        env:
           - name: DATASOURCES_DEFAULT_URL
             valueFrom:
               secretKeyRef:
@@ -35,6 +35,6 @@ spec:
                 key: rds_password
                 name: miiingle.dev.secrets
         ports:
-          - containerPort: 8080
-            name: http
-            protocol: TCP
+        - name: http
+          containerPort: 8080
+          protocol: TCP
