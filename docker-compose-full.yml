@@ -7,6 +7,10 @@ services:
       POSTGRES_PASSWORD: testfullpass123
     ports:
       - 5432:5432
+  zipkin:
+    image: openzipkin/zipkin:latest
+    ports:
+      - 9411:9411
   user-api:
     image: 'startupbuilder/miiingle-net-user-api:latest'
     environment:

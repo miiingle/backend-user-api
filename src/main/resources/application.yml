@@ -26,5 +26,13 @@ jpa:
   default.properties.hibernate.hbm2ddl.auto: update
   entity-scan.packages: 'net.miiingle.user.api.client.persistence.data'
 
+tracing:
+  zipkin:
+    enabled: true
+    http:
+      url: http://localhost:9411
+    sampler:
+      probability: 1
+
 # determines the kind of email client that we are wiring: ses, logging, error
 client.email: logging
