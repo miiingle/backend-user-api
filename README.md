@@ -2,6 +2,25 @@
 The backend server for processing user registrations, login, and user profile
 
 
+
+# API Design Principles
+- CQRS: lets separate modification commands from data queries
+```
+Commands: 
+
+POST   <resource>/
+PUT    <resource>/{id}
+PATCH  <resource>/{id}
+
+
+Queries:
+GET    <resource>/
+GET    <resource>/search/findBy{predicate}
+GET    <resource>/count/
+
+```
+
+
 ## Feature rxjava3 documentation
 
 - [Micronaut RxJava 3 documentation](https://micronaut-projects.github.io/micronaut-rxjava3/snapshot/guide/index.html)
