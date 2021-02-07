@@ -39,6 +39,7 @@ dependencies {
     implementation("io.micronaut.rxjava3:micronaut-rxjava3")
     implementation("io.micronaut:micronaut-tracing")
     implementation("io.opentracing.brave:brave-opentracing")
+    implementation("io.zipkin.aws:brave-propagation-aws:0.23.2")
     runtimeOnly("io.zipkin.brave:brave-instrumentation-http")
     runtimeOnly("io.zipkin.reporter2:zipkin-reporter")
     runtimeOnly("ch.qos.logback:logback-classic")
