@@ -6,8 +6,12 @@ phases:
       java: corretto11
     commands:
       - java --version
+      - docker pull postgres:12
+      - docker pull oracle/graalvm-ce:20.3.0-java11
+      - docker images
   build:
     commands:
       - ./gradlew build
       - ./gradlew dockerBuild
-      - docker images
+      - ./gradlew dockerBuildNative
+      - docker images | grep miiingle
