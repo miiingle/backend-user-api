@@ -6,7 +6,11 @@ phases:
       java: corretto11
     commands:
       - java --version
+      - aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 327229172692.dkr.ecr.us-east-1.amazonaws.com
       - docker pull postgres:12
+      - docker pull 327229172692.dkr.ecr.us-east-1.amazonaws.com/miiingle.net.oracle_graalvm:latest
+      - docker tag 327229172692.dkr.ecr.us-east-1.amazonaws.com/miiingle.net.oracle_graalvm:latest oracle/graalvm-ce:20.3.0-java11
+      - docker tag 327229172692.dkr.ecr.us-east-1.amazonaws.com/miiingle.net.oracle_graalvm:latest oracle/graalvm-ce:latest
       - docker images
 # TODO:
 # (a) login to dockerhub or
@@ -15,6 +19,7 @@ phases:
 #      - docker pull oracle/graalvm-ce:20.3.0-java11
   build:
     commands:
+      - docker images
       - ./gradlew build
       - ./gradlew dockerBuild
       - ./gradlew dockerBuildNative
