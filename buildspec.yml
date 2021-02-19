@@ -12,15 +12,16 @@ phases:
       - docker tag 327229172692.dkr.ecr.us-east-1.amazonaws.com/miiingle.net.oracle_graalvm:latest oracle/graalvm-ce:20.3.0-java11
       - docker tag 327229172692.dkr.ecr.us-east-1.amazonaws.com/miiingle.net.oracle_graalvm:latest oracle/graalvm-ce:latest
       - docker images
-# TODO:
-# (a) login to dockerhub or
-# (b) host this ourselves - need to tell dockerBuildNative how (or hack using image pull and tag)
-#   https://docs.aws.amazon.com/codebuild/latest/userguide/sample-private-registry.html
-#      - docker pull oracle/graalvm-ce:20.3.0-java11
   build:
     commands:
       - docker images
       - ./gradlew build
       - ./gradlew dockerBuild
+      - docker tag miiingle-net-user-api:latest 327229172692.dkr.ecr.us-east-1.amazonaws.com/miiingle.net.user_api:latest
       - ./gradlew dockerBuildNative
+      - docker tag miiingle-net-user-api:latest 327229172692.dkr.ecr.us-east-1.amazonaws.com/miiingle.net.user_api:latest-native
       - docker images | grep miiingle
+  post_build:
+    commands:
+      - docker push 327229172692.dkr.ecr.us-east-1.amazonaws.com/miiingle.net.user_api:latest
+      - docker push 327229172692.dkr.ecr.us-east-1.amazonaws.com/miiingle.net.user_api:latest-native
