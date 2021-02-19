@@ -17,5 +17,5 @@ phases:
     commands:
       - ./gradlew build
       - ./gradlew dockerBuild
+      - ./gradlew dockerBuildNative
       - docker images | grep miiingle
-#      - ./gradlew dockerBuildNative
