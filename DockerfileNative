@@ -9,4 +9,4 @@ RUN native-image -H:Class=net.miiingle.user.api.Application -H:Name=application 
 FROM amazonlinux
 RUN yum update -y && yum install -y gcc gcc-c++ libc6-dev  zlib1g-dev curl bash zlib zlib-devel zip tar
 COPY --from=graalvm /home/app/application /app/application
-ENTRYPOINT ["/app/application", "-Xmx256m"]
+ENTRYPOINT ["/app/application"]
