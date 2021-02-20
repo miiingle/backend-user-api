@@ -18,7 +18,7 @@ phases:
       - ./gradlew build
       - ./gradlew dockerBuild
       - docker tag miiingle-net-user-api:latest 327229172692.dkr.ecr.us-east-1.amazonaws.com/miiingle.net.user_api:latest
-      - docker build . -t 327229172692.dkr.ecr.us-east-1.amazonaws.com/miiingle.net.user_api:latest-native
+      - docker build . -f DockerfileNative -t 327229172692.dkr.ecr.us-east-1.amazonaws.com/miiingle.net.user_api:latest-native
       - docker images | grep miiingle
   post_build:
     commands:
