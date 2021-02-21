@@ -12,10 +12,16 @@ services:
     ports:
       - 9411:9411
   user-api:
-    image: 'startupbuilder/miiingle-net-user-api:latest'
+    image: '327229172692.dkr.ecr.us-east-1.amazonaws.com/miiingle.net.user_api:latest-native'
+    depends_on:
+      - postgres
+      - zipkin
     environment:
+      CLIENT_EMAIL: logging
+      TRACING_ZIPKIN_HTTP_URL: http://zipkin:9411
       DATASOURCES_DEFAULT_URL: jdbc:postgresql://postgres:5432/postgres?currentSchema=public
       DATASOURCES_DEFAULT_USERNAME: testfull
       DATASOURCES_DEFAULT_PASSWORD: testfullpass123
+      LOGGER_LEVEL_ROOT: DEBUG
     ports:
       - 8080:8080
