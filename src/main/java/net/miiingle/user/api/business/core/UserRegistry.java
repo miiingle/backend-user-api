@@ -42,12 +42,14 @@ public class UserRegistry {
      *
      * @param registrationRequest a request to start a membership
      */
-    public void register(RegistrationRequest registrationRequest) {
+    public Long register(RegistrationRequest registrationRequest) {
         String confirmationCode = "000000";
 
         var createdRegistration = storeRegistration(registrationRequest, confirmationCode);
 
         tryToSendConfirmationCodeFor(createdRegistration, confirmationCode);
+
+        return createdRegistration.getId();
     }
 
     /**
