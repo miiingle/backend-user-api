@@ -8,9 +8,8 @@ import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import net.miiingle.user.api.business.core.UserRegistry;
 import net.miiingle.user.api.business.core.data.RegistrationRequest;
+import net.miiingle.user.api.presentation.data.shared.NewResource;
 import net.miiingle.user.api.presentation.data.RegistrationVerificationDTO;
-
-import java.util.Map;
 
 @RequiredArgsConstructor
 @Secured(SecurityRule.IS_ANONYMOUS)
@@ -27,8 +26,8 @@ public class RegistrationController {
     )
     @Post("/")
     @Status(HttpStatus.CREATED)
-    public Map<String, String> startRegistration(@Body RegistrationRequest registrationRequest) {
-        return Map.of("id", userRegistry.register(registrationRequest).toString());
+    public NewResource startRegistration(@Body RegistrationRequest registrationRequest) {
+        return NewResource.create(userRegistry.register(registrationRequest).toString());
     }
 
     @Operation(

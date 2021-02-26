@@ -46,7 +46,16 @@ import io.swagger.v3.oas.annotations.tags.Tag;
                 @Tag(
                         name = "User",
                         description = "User profile, account, posts, and friends"
+                ),
+                @Tag(
+                        name = "Friendship",
+                        description = "Relationship between users"
+                ),
+                @Tag(
+                        name = "Memory",
+                        description = "Things you want to remember"
                 )
+
         }
 )
 public class Application {

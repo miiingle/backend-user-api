@@ -6,16 +6,16 @@ import io.micronaut.http.annotation.Controller;
 import io.micronaut.http.annotation.Error;
 import io.micronaut.security.annotation.Secured;
 import io.micronaut.security.rules.SecurityRule;
-import net.miiingle.user.api.presentation.data.GenericError;
+import net.miiingle.user.api.presentation.data.shared.ResourceError;
 
 @Secured(SecurityRule.IS_ANONYMOUS)
 @Controller
-public class GlobalErrorController {
+public class GlobalErrorHandler {
 
     @Error(exception = Exception.class, global = true)
-    public HttpResponse<GenericError> catchAllUnhandledException(HttpRequest<?> request, Exception exception) {
+    public HttpResponse<ResourceError> catchAllUnhandledException(HttpRequest<?> request, Exception exception) {
 
-        var error= GenericError.builder()
+        var error= ResourceError.builder()
                 .code("0")
                 .description("IDK what happened: " + request.getMethod() + " "
                         + request.getPath() + " (" + exception.getClass().getSimpleName() + ")")
