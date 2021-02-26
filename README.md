@@ -1,5 +1,7 @@
 # User API Server
 ![Build Status](https://codebuild.us-east-1.amazonaws.com/badges?uuid=eyJlbmNyeXB0ZWREYXRhIjoiU0Q0SURIaGdzVXRmYUJ4ZDY3b1RtSFppWVZESSs0ejdROERPWjE3STdHUHVuQWI5c2lEZW00TzFDc1FJLzNzY1RlUUhSN1V2RmRZUTcwQ0NwS3FsV0RvPSIsIml2UGFyYW1ldGVyU3BlYyI6InlFMDRvcVhIM1VvQjI0L0giLCJtYXRlcmlhbFNldFNlcmlhbCI6MX0%3D&branch=master)
+
+
 The backend server for processing user registrations, login, and user profile
 
 
