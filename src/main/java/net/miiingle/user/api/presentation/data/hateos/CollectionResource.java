@@ -6,6 +6,7 @@ import io.micronaut.http.annotation.Produces;
 import io.micronaut.http.hateoas.AbstractResource;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
+import net.miiingle.user.api.presentation.data.SimpleUserRepresentation;
 
 import java.util.List;
 
@@ -26,5 +27,10 @@ public class CollectionResource<T> extends AbstractResource<CollectionResource<T
 
     public static <T> CollectionResource<T> create(List<T> contents) {
         return new CollectionResource<>(contents);
+    }
+
+    @Schema
+    public interface SimpleUserRepresentationType {
+        List<SimpleUserRepresentation> getContents();
     }
 }

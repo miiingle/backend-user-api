@@ -49,7 +49,11 @@ public class RegistrationController {
     @Status(HttpStatus.CREATED)
     public IdentifierResource startRegistration(@Body RegistrationRequest registrationRequest) {
         var newlyCreated = IdentifierResource.create(userRegistry.register(registrationRequest).toString());
-        newlyCreated.link(Link.HELP, "https://docs.io");
+        newlyCreated.link("verify", Link.build("/{registrationId}/verify{?code}")
+                .name("VerifyRegistration")
+                .title("Verify the New Registration")
+                .templated(true)
+                .build());
 
         return newlyCreated;
     }

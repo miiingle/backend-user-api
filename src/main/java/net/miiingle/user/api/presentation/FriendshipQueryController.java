@@ -9,7 +9,6 @@ import io.micronaut.http.hateoas.Link;
 import io.micronaut.security.annotation.Secured;
 import io.micronaut.security.rules.SecurityRule;
 import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.links.LinkParameter;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -17,6 +16,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.RequiredArgsConstructor;
 import net.miiingle.user.api.presentation.data.SimpleUserRepresentation;
+import net.miiingle.user.api.presentation.data.hateos.CollectionResource;
 import net.miiingle.user.api.presentation.data.hateos.PageMetadata;
 import net.miiingle.user.api.presentation.data.hateos.PagedCollectionResource;
 
@@ -42,9 +42,13 @@ public class FriendshipQueryController {
                     content = {
                             @Content(
                                     schema = @Schema(
+                                            type = "object",
                                             name = "PagedCollection<SimpleUser>",
                                             description = "A list of basic user information",
-                                            allOf = {PagedCollectionResource.class}
+                                            allOf = {
+                                                    CollectionResource.SimpleUserRepresentationType.class,
+                                                    PagedCollectionResource.class
+                                            }
                                     )
                             )
                     }

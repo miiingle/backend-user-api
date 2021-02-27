@@ -14,8 +14,15 @@ import lombok.Getter;
 @Introspected
 public class PageMetadata {
 
+    @Schema(example = "0")
     private final Integer number;
+
+    @Schema(example = "25")
     private final Integer size;
+
+    @Schema(example = "100")
     private final Integer totalPages;
+
+    @Schema(example = "2500")
     private final Long totalItems;
 }
