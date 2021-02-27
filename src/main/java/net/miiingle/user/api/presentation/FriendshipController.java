@@ -7,7 +7,7 @@ import io.micronaut.security.rules.SecurityRule;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.RequiredArgsConstructor;
-import net.miiingle.user.api.presentation.data.hateos.IdentifierResource;
+import net.miiingle.user.api.presentation.hateos.IdentifierResource;
 import net.miiingle.user.api.presentation.data.FriendRequest;
 
 @SecurityRequirement(name = "BearerAuth")

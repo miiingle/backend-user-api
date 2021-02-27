@@ -1,4 +1,4 @@
-package net.miiingle.user.api.presentation.data.hateos;
+package net.miiingle.user.api.presentation.hateos;
 
 import io.micronaut.core.annotation.Introspected;
 import io.micronaut.http.MediaType;

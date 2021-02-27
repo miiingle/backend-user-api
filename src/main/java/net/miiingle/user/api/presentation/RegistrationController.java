@@ -12,7 +12,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.RequiredArgsConstructor;
 import net.miiingle.user.api.business.core.UserRegistry;
 import net.miiingle.user.api.business.core.data.RegistrationRequest;
-import net.miiingle.user.api.presentation.data.hateos.IdentifierResource;
+import net.miiingle.user.api.presentation.hateos.IdentifierResource;
 import net.miiingle.user.api.presentation.data.RegistrationVerificationDTO;
 
 @RequiredArgsConstructor

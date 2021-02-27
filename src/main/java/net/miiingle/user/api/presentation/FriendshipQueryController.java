@@ -16,9 +16,9 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.RequiredArgsConstructor;
 import net.miiingle.user.api.presentation.data.SimpleUserRepresentation;
-import net.miiingle.user.api.presentation.data.hateos.CollectionResource;
-import net.miiingle.user.api.presentation.data.hateos.PageMetadata;
-import net.miiingle.user.api.presentation.data.hateos.PagedCollectionResource;
+import net.miiingle.user.api.presentation.hateos.CollectionResource;
+import net.miiingle.user.api.presentation.hateos.PageMetadata;
+import net.miiingle.user.api.presentation.hateos.PagedCollectionResource;
 
 import java.util.LinkedList;
 import java.util.List;
