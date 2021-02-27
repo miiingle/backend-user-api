@@ -11,8 +11,8 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.RequiredArgsConstructor;
 import net.miiingle.user.api.presentation.data.Memory;
-import net.miiingle.user.api.presentation.data.shared.PageMetadata;
-import net.miiingle.user.api.presentation.data.shared.ResourceCollection;
+import net.miiingle.user.api.presentation.data.hateos.PageMetadata;
+import net.miiingle.user.api.presentation.data.hateos.PagedCollectionResource;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -31,11 +31,11 @@ public class MemoryQueryController {
     )
     @Get
     @Status(HttpStatus.OK)
-    public ResourceCollection<Memory, PageMetadata> listAll(@PathVariable String userId) {
+    public PagedCollectionResource<Memory> listAll(@PathVariable String userId) {
 
         List<Memory> fakeMemories = new LinkedList<>();
-        PageMetadata metadata = new PageMetadata();
+        PageMetadata metadata = PageMetadata.builder().build();
 
-        return ResourceCollection.createNew(fakeMemories, metadata);
+        return PagedCollectionResource.create(fakeMemories, metadata);
     }
 }

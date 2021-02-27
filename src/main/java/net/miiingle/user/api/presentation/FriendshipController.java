@@ -7,7 +7,7 @@ import io.micronaut.security.rules.SecurityRule;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.RequiredArgsConstructor;
-import net.miiingle.user.api.presentation.data.shared.NewResource;
+import net.miiingle.user.api.presentation.data.hateos.IdentifierResource;
 import net.miiingle.user.api.presentation.data.FriendRequest;
 
 @SecurityRequirement(name = "BearerAuth")
@@ -24,9 +24,9 @@ public class FriendshipController {
     )
     @Post
     @Status(HttpStatus.CREATED)
-    public NewResource requestFriendship(
+    public IdentifierResource requestFriendship(
             @PathVariable String userId,
             @Body FriendRequest friendRequest) {
-        return NewResource.create("10000");
+        return IdentifierResource.create("10000");
     }
 }

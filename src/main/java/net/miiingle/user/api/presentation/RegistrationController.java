@@ -2,13 +2,14 @@ package net.miiingle.user.api.presentation;
 
 import io.micronaut.http.HttpStatus;
 import io.micronaut.http.annotation.*;
+import io.micronaut.http.hateoas.Link;
 import io.micronaut.security.annotation.Secured;
 import io.micronaut.security.rules.SecurityRule;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import net.miiingle.user.api.business.core.UserRegistry;
 import net.miiingle.user.api.business.core.data.RegistrationRequest;
-import net.miiingle.user.api.presentation.data.shared.NewResource;
+import net.miiingle.user.api.presentation.data.hateos.IdentifierResource;
 import net.miiingle.user.api.presentation.data.RegistrationVerificationDTO;
 
 @RequiredArgsConstructor
@@ -26,8 +27,11 @@ public class RegistrationController {
     )
     @Post("/")
     @Status(HttpStatus.CREATED)
-    public NewResource startRegistration(@Body RegistrationRequest registrationRequest) {
-        return NewResource.create(userRegistry.register(registrationRequest).toString());
+    public IdentifierResource startRegistration(@Body RegistrationRequest registrationRequest) {
+        var newlyCreated = IdentifierResource.create(userRegistry.register(registrationRequest).toString());
+        newlyCreated.link(Link.HELP, "https://docs.io");
+
+        return newlyCreated;
     }
 
     @Operation(
