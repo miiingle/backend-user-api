@@ -6,6 +6,9 @@ import io.micronaut.http.hateoas.Link;
 import io.micronaut.security.annotation.Secured;
 import io.micronaut.security.rules.SecurityRule;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.links.LinkParameter;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.RequiredArgsConstructor;
 import net.miiingle.user.api.business.core.UserRegistry;
 import net.miiingle.user.api.business.core.data.RegistrationRequest;
@@ -25,7 +28,24 @@ public class RegistrationController {
             description = "Starts the process of a user registration. At this point no user account is created, yet",
             tags = {"Registration"}
     )
-    @Post("/")
+    @ApiResponses(
+            @ApiResponse(
+                    responseCode = "201",
+                    description = "A registration was accepted, but will still need verification",
+                    links = {
+                            @io.swagger.v3.oas.annotations.links.Link(
+                                    name = "VerifyRegistration",
+                                    operationId = "registrationVerifyLink",
+                                    parameters = @LinkParameter(
+                                            name = "registrationId",
+                                            expression = "$response.body#/id"
+                                    ),
+                                    description = "The `id` value returned in the response can be used as the path for verifying a registration"
+                            )
+                    }
+            )
+    )
+    @Post
     @Status(HttpStatus.CREATED)
     public IdentifierResource startRegistration(@Body RegistrationRequest registrationRequest) {
         var newlyCreated = IdentifierResource.create(userRegistry.register(registrationRequest).toString());

@@ -26,7 +26,7 @@ import java.util.List;
 @SecurityRequirement(name = "BearerAuth")
 @RequiredArgsConstructor
 @Secured(SecurityRule.IS_AUTHENTICATED)
-@Controller("users/{userId}/friends/search")
+@Controller("users/{userId}/friends")
 public class FriendshipQueryController {
 
     @Operation(
@@ -47,14 +47,6 @@ public class FriendshipQueryController {
                                             allOf = {PagedCollectionResource.class}
                                     )
                             )
-                    },
-                    links = {
-                            @io.swagger.v3.oas.annotations.links.Link(
-                                    name = "add",
-                                    operationId = "requestFriendship",
-                                    parameters = @LinkParameter(
-                                            name = "userId",
-                                            expression = "$request.path.userId"))
                     }
             )
     )
