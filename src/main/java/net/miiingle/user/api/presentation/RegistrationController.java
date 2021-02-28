@@ -2,10 +2,10 @@ package net.miiingle.user.api.presentation;
 
 import io.micronaut.http.HttpStatus;
 import io.micronaut.http.annotation.*;
-import io.micronaut.http.hateoas.Link;
 import io.micronaut.security.annotation.Secured;
 import io.micronaut.security.rules.SecurityRule;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.links.Link;
 import io.swagger.v3.oas.annotations.links.LinkParameter;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -14,6 +14,7 @@ import net.miiingle.user.api.business.core.UserRegistry;
 import net.miiingle.user.api.business.core.data.RegistrationRequest;
 import net.miiingle.user.api.presentation.hateos.IdentifierResource;
 import net.miiingle.user.api.presentation.data.RegistrationVerificationDTO;
+import net.miiingle.user.api.presentation.hateos.support.RegistrationResourceBuilder;
 
 @RequiredArgsConstructor
 @Secured(SecurityRule.IS_ANONYMOUS)
@@ -33,7 +34,7 @@ public class RegistrationController {
                     responseCode = "201",
                     description = "A registration was accepted, but will still need verification",
                     links = {
-                            @io.swagger.v3.oas.annotations.links.Link(
+                            @Link(
                                     name = "VerifyRegistration",
                                     operationId = "registrationVerifyLink",
                                     parameters = @LinkParameter(
@@ -48,14 +49,7 @@ public class RegistrationController {
     @Post
     @Status(HttpStatus.CREATED)
     public IdentifierResource startRegistration(@Body RegistrationRequest registrationRequest) {
-        var newlyCreated = IdentifierResource.create(userRegistry.register(registrationRequest).toString());
-        newlyCreated.link("verify", Link.build("/{registrationId}/verify{?code}")
-                .name("VerifyRegistration")
-                .title("Verify the New Registration")
-                .templated(true)
-                .build());
-
-        return newlyCreated;
+        return RegistrationResourceBuilder.build(userRegistry.register(registrationRequest));
     }
 
     @Operation(

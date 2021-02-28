@@ -27,7 +27,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
                 ),
                 @Server(
                         description = "Development",
-                        url = "http://api.dev.miiingle.net"
+                        url = "https://dev.api.miiingle.net"
                 ),
                 @Server(
                         description = "Production",

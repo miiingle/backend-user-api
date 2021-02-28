@@ -1,18 +1,19 @@
 package net.miiingle.user.api.business.core.data;
 
 import io.micronaut.core.annotation.Introspected;
-import lombok.AllArgsConstructor;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.Getter;
 
-@Data
+@Schema(name = "Registration")
+@Getter
 @Builder
-@AllArgsConstructor
-@NoArgsConstructor
 @Introspected
 public class RegistrationRequest {
 
-    String email;
-    String name;
+    @Schema(example = "john.doe@business.com")
+    private final String email;
+
+    @Schema(example = "John Doe")
+    private final String name;
 }
