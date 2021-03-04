@@ -6,7 +6,7 @@ phases:
       java: corretto11
     commands:
       - java --version
-      - aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 327229172692.dkr.ecr.us-east-1.amazonaws.com
+      - $(aws ecr get-login --no-include-email)
       - docker pull postgres:12
       - docker pull ghcr.io/graalvm/graalvm-ce:java11-21.0.0
       - docker pull gcr.io/distroless/cc-debian10
@@ -15,10 +15,12 @@ phases:
   build:
     commands:
       - ./gradlew clean test
-      - docker build . -t 327229172692.dkr.ecr.us-east-1.amazonaws.com/miiingle.net.user_api:latest
-      - docker build . -f DockerfileNative -t 327229172692.dkr.ecr.us-east-1.amazonaws.com/miiingle.net.user_api:latest-native
+      - docker build . -t $CONTAINER_REPOSITORY_URL:latest -t $CONTAINER_REPOSITORY_URL:$CODEBUILD_BUILD_NUMBER
+      - docker build . -f DockerfileNative -t $CONTAINER_REPOSITORY_URL:latest-native -t $CONTAINER_REPOSITORY_URL:$CODEBUILD_BUILD_NUMBER-native
       - docker images | grep miiingle
   post_build:
     commands:
-      - docker push 327229172692.dkr.ecr.us-east-1.amazonaws.com/miiingle.net.user_api:latest
-      - docker push 327229172692.dkr.ecr.us-east-1.amazonaws.com/miiingle.net.user_api:latest-native
+      - docker push $CONTAINER_REPOSITORY_URL:$CODEBUILD_BUILD_NUMBER
+      - docker push $CONTAINER_REPOSITORY_URL:$CODEBUILD_BUILD_NUMBER-native
+      - docker push $CONTAINER_REPOSITORY_URL:latest
+      - docker push $CONTAINER_REPOSITORY_URL:latest-native
