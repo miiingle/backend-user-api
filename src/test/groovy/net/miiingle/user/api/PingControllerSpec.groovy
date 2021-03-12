@@ -23,7 +23,7 @@ class PingControllerSpec extends Specification {
 
     void "test index"() {
         given:
-        HttpResponse response = client.toBlocking().exchange("/ping")
+        HttpResponse response = client.toBlocking().exchange("/ping/nothing")
 
         expect:
         response.status == HttpStatus.OK
