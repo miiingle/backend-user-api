@@ -11,12 +11,15 @@ phases:
       - docker pull ghcr.io/graalvm/graalvm-ce:java11-21.0.0
       - docker pull gcr.io/distroless/cc-debian10
       - docker pull amazoncorretto:11
+      - docker pull $MISC_REPOSITORY_URL:jmeter-user-api
       - docker images
   build:
     commands:
       - ./gradlew clean test
       - docker build . -t $CONTAINER_REPOSITORY_URL:latest -t $CONTAINER_REPOSITORY_URL:$CODEBUILD_BUILD_NUMBER
       - docker build . -f DockerfileNative -t $CONTAINER_REPOSITORY_URL:latest-native -t $CONTAINER_REPOSITORY_URL:$CODEBUILD_BUILD_NUMBER-native
+      - docker run -d -p 8080:8080 $CONTAINER_REPOSITORY_URL:latest-native
+      - docker run --network="host" $MISC_REPOSITORY_URL:jmeter-user-api
       - docker images | grep miiingle
   post_build:
     commands:
