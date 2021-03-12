@@ -6,7 +6,7 @@ import spock.lang.Specification
 import javax.inject.Inject
 
 @MicronautTest
-class MiiingleNetUserApiSpec extends Specification {
+class UserApiSpec extends Specification {
 
     @Inject
     EmbeddedApplication<?> application
