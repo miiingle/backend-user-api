@@ -9,6 +9,6 @@ RUN cd /opt \
 
 RUN ln -s /opt/apache-jmeter-${JMETER_VERSION}/bin/jmeter /usr/local/bin
 
-COPY PerformanceTest.jmx test.jmx
+COPY PerformanceTest.jmx PerformanceTest.jmx
 
-CMD jmeter -t test.jmx -n
+CMD jmeter -n -t PerformanceTest.jmx -Jhost=host.docker.internal
