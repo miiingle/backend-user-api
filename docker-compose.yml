@@ -13,6 +13,9 @@ services:
       URL: 'jdbc:postgresql://postgres:5432/postgres?currentSchema=public'
       USERNAME: postgres
       PASSWORD: 'secret'
+    depends_on:
+      - postgres
+      - zipkin
   zipkin:
     image: openzipkin/zipkin:latest
     ports:
