@@ -21,9 +21,17 @@ class PingControllerSpec extends Specification {
     @Shared @AutoCleanup @Inject @Client("/")
     RxHttpClient client
 
-    void "test index"() {
+    void "test server is ready"() {
         given:
         HttpResponse response = client.toBlocking().exchange("/ping/nothing")
+
+        expect:
+        response.status == HttpStatus.OK
+    }
+
+    void "test server is ready to write"() {
+        given:
+        HttpResponse response = client.toBlocking().exchange("/ping/create")
 
         expect:
         response.status == HttpStatus.OK
