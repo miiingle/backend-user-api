@@ -1,12 +1,18 @@
 version: '3.7'
 services:
   postgres:
-    image: postgres:13.2-alpine
+    image: postgres:11.10-alpine
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: 'secret'
     ports:
       - 5432:5432
+  liquibase:
+    image: miiingle-user-api-liquibase:latest
+    environment:
+      URL: 'jdbc:postgresql://postgres:5432/postgres?currentSchema=public'
+      USERNAME: postgres
+      PASSWORD: 'secret'
   zipkin:
     image: openzipkin/zipkin:latest
     ports:
