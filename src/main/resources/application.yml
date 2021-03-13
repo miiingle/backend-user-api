@@ -7,5 +7,5 @@ datasources:
     driverClassName: org.postgresql.Driver
     username: postgres
     password: 'secret'
-    schema-generate: CREATE
+    schema-generate: NONE
     dialect: POSTGRES
