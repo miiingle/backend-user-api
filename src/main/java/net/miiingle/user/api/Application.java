@@ -28,7 +28,8 @@ import io.swagger.v3.oas.annotations.tags.Tag;
         },
         tags = {
                 @Tag(name = "Ping"),
-                @Tag(name = "User Profile")
+                @Tag(name = "User Profile"),
+                @Tag(name = "Friendship")
         }
 )
 public class Application {
