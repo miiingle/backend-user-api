@@ -5,6 +5,6 @@ import lombok.Value;
 @Value
 public class PublicProfile {
 
-    private String id;
-    private String name;
+    String id;
+    String name;
 }

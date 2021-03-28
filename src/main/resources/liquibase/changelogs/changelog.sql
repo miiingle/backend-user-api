@@ -8,3 +8,11 @@ create table ping_entity
     date_created timestamp,
     name varchar(255)
 );
+
+--changeset lbibera:00001_user_profile_init
+--comment: initial database for the user profile storage
+create table user_profile
+(
+    id varchar(500) not null constraint user_profile_pk primary key,
+    full_name varchar(1000)
+);
