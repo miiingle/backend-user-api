@@ -1,6 +1,18 @@
 micronaut:
   application:
-    name: userApi
+    name: 'user-api'
+  security:
+    enabled: true
+    token:
+      jwt:
+        enabled: true
+        signatures:
+          jwks:
+            keycloak:
+              url: 'http://localhost:8081/auth/realms/master/protocol/openid-connect/certs'
+  server:
+    cors:
+      enabled: true
 datasources:
   default:
     url: jdbc:postgresql://localhost:5432/postgres
