@@ -32,11 +32,12 @@ dependencies {
     implementation("io.micronaut.sql:micronaut-jdbc-hikari")
     implementation("io.micronaut.data:micronaut-data-jdbc")
     implementation("io.micronaut.security:micronaut-security-jwt")
+    implementation("io.micronaut:micronaut-tracing")
+    implementation("io.opentracing.brave:brave-opentracing")
     runtimeOnly("ch.qos.logback:logback-classic")
     runtimeOnly("org.postgresql:postgresql")
-    testImplementation("org.testcontainers:testcontainers")
-    testImplementation("org.testcontainers:spock")
-    testImplementation("org.testcontainers:postgresql")
+    runtimeOnly("io.zipkin.brave:brave-instrumentation-http")
+    runtimeOnly("io.zipkin.reporter2:zipkin-reporter")
 }
 
 

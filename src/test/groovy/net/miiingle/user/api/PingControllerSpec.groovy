@@ -1,6 +1,7 @@
 package net.miiingle.user.api
 
 import io.micronaut.http.client.annotation.Client
+import io.micronaut.http.client.exceptions.HttpClientResponseException
 import io.micronaut.runtime.server.EmbeddedServer
 import io.micronaut.test.extensions.spock.annotation.MicronautTest
 import io.micronaut.http.client.RxHttpClient
@@ -21,19 +22,28 @@ class PingControllerSpec extends Specification {
     @Shared @AutoCleanup @Inject @Client("/")
     RxHttpClient client
 
-    void "test server is ready"() {
+    void "server is ready"() {
         given:
-        HttpResponse response = client.toBlocking().exchange("/ping/nothing")
+        HttpResponse response = client.toBlocking().exchange("/ping/server")
 
         expect:
         response.status == HttpStatus.OK
     }
 
-    void "test server is ready to write"() {
+    void "database is ready"() {
         given:
-        HttpResponse response = client.toBlocking().exchange("/ping/create")
+        HttpResponse response = client.toBlocking().exchange("/ping/postgres")
 
         expect:
         response.status == HttpStatus.OK
+    }
+
+    void "security is ready"() {
+        when:
+        client.toBlocking().exchange("/ping/security")
+
+        then:
+        def httpError = thrown(HttpClientResponseException)
+        httpError.getStatus() == HttpStatus.UNAUTHORIZED
     }
 }

@@ -17,14 +17,14 @@ public class PingController {
     private final PingRepository repository;
 
     @Secured(SecurityRule.IS_ANONYMOUS)
-    @Get(uri="/nothing", produces="text/plain")
+    @Get(uri="/server", produces="text/plain")
     public String pingNothing() {
-        log.info("Ping: {}", LocalDateTime.now());
+        log.info("Ping Server: {}", LocalDateTime.now());
         return "Pong";
     }
 
     @Secured(SecurityRule.IS_ANONYMOUS)
-    @Get(uri="/create", produces="text/plain")
+    @Get(uri="/postgres", produces="text/plain")
     public String create() {
         var now = LocalDateTime.now();
         var newPing = repository.save(new PingEntity(null, "X"+now, now));
@@ -37,6 +37,7 @@ public class PingController {
     @Secured(SecurityRule.IS_AUTHENTICATED)
     @Get(uri = "/security")
     public Authentication security(Authentication authentication) {
+        log.info("Ping Security: {}", authentication.getName());
         return authentication;
     }
 }

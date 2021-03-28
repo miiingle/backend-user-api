@@ -21,3 +21,11 @@ datasources:
     password: 'secret'
     schema-generate: NONE
     dialect: POSTGRES
+
+tracing:
+  zipkin:
+    http:
+      url: http://localhost:9411
+    enabled: true
+    sampler:
+      probability: 1
