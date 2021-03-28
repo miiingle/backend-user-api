@@ -4,6 +4,7 @@ import io.micronaut.http.annotation.*;
 import io.micronaut.security.annotation.Secured;
 import io.micronaut.security.authentication.Authentication;
 import io.micronaut.security.rules.SecurityRule;
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -16,6 +17,9 @@ public class PingController {
 
     private final PingRepository repository;
 
+    @Operation(
+            tags = "Ping"
+    )
     @Secured(SecurityRule.IS_ANONYMOUS)
     @Get(uri="/server", produces="text/plain")
     public String pingNothing() {
@@ -23,6 +27,9 @@ public class PingController {
         return "Pong";
     }
 
+    @Operation(
+            tags = "Ping"
+    )
     @Secured(SecurityRule.IS_ANONYMOUS)
     @Get(uri="/postgres", produces="text/plain")
     public String create() {
@@ -34,6 +41,9 @@ public class PingController {
         return "Pong " + newPing.id;
     }
 
+    @Operation(
+            tags = "Ping"
+    )
     @Secured(SecurityRule.IS_AUTHENTICATED)
     @Get(uri = "/security")
     public Authentication security(Authentication authentication) {
