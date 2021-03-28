@@ -5,6 +5,7 @@ phases:
     runtime-versions:
       java: corretto11
     commands:
+      - docker version
       - java --version
       - $(aws ecr get-login --no-include-email)
       - docker pull postgres:11.10-alpine
