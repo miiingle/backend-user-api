@@ -13,7 +13,6 @@ import java.time.LocalDateTime;
 @MappedEntity
 public class PingEntity {
 
-
     @Id
     @GeneratedValue
     Long id;

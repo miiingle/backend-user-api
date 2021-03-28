@@ -13,6 +13,8 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import net.miiingle.user.api.profile.core.ProfileDoesNotExist;
+import net.miiingle.user.api.profile.core.ProfileService;
+import net.miiingle.user.api.profile.core.UserProfile;
 
 @Tag(name = "User Profile")
 @RequiredArgsConstructor
@@ -21,29 +23,35 @@ import net.miiingle.user.api.profile.core.ProfileDoesNotExist;
 public class ProfileAPI {
 
     private final SecurityService securityService;
+    private final ProfileService profileService;
 
     @Secured(SecurityRule.IS_ANONYMOUS)
     @Get(uri="/{userId}")
     public PublicProfile displayPublicProfile(String userId) {
-        if (userId.equalsIgnoreCase("xx")) throw ProfileDoesNotExist.create();
-
-        return new PublicProfile(userId, "Test Test");
+        return new PublicProfile(profileService.findById(userId));
     }
 
     @Secured(SecurityRule.IS_AUTHENTICATED)
     @Get(uri = "/me")
     public PublicProfile showMyProfile() {
-        return new PublicProfile(securityService.getAuthentication().get().getName(), "Test Test");
+        return new PublicProfile(profileService.findById(extractedUserId()));
+    }
+
+    private String extractedUserId() {
+        return securityService.getAuthentication()
+                .orElseThrow(ProfileDoesNotExist::create)
+                .getName();
     }
 
     @Secured(SecurityRule.IS_AUTHENTICATED)
     @Put(uri = "/me")
     public void updateMyProfile(UpdateProfile command) {
-        log.info("Update Profile [{}]: {}", securityService.getAuthentication().get().getName(), command);
+        log.info("Update Profile [{}]: {}", extractedUserId(), command);
+        profileService.update(new UserProfile(extractedUserId(), command.getFullName()));
     }
 
     @Error
-    public HttpResponse<JsonError> profileNotFound(IllegalStateException e) {
+    public HttpResponse<JsonError> profileNotFound(ProfileDoesNotExist e) {
         var error = new JsonError("Profile does not exist: " + e.getMessage());
 
         return HttpResponse.notFound(error);
