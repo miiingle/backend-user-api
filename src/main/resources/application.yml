@@ -9,7 +9,7 @@ micronaut:
         signatures:
           jwks:
             keycloak:
-              url: 'http://localhost:8081/auth/realms/master/protocol/openid-connect/certs'
+              url: "${KEYCLOAK_PROTOCOL:http}://${KEYCLOAK_HOST:localhost}:${KEYCLOAK_PORT:8081}/auth/realms/${KEYCLOAK_REALM:master}/protocol/openid-connect/certs"
   server:
     cors:
       enabled: true
