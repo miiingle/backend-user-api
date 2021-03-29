@@ -1,10 +1,9 @@
 package net.miiingle.user.api.profile;
 
+import io.micronaut.data.model.Page;
 import io.micronaut.http.HttpResponse;
-import io.micronaut.http.annotation.Controller;
+import io.micronaut.http.annotation.*;
 import io.micronaut.http.annotation.Error;
-import io.micronaut.http.annotation.Get;
-import io.micronaut.http.annotation.Put;
 import io.micronaut.http.hateoas.JsonError;
 import io.micronaut.security.annotation.Secured;
 import io.micronaut.security.rules.SecurityRule;
@@ -15,6 +14,10 @@ import lombok.extern.slf4j.Slf4j;
 import net.miiingle.user.api.profile.core.ProfileDoesNotExist;
 import net.miiingle.user.api.profile.core.ProfileService;
 import net.miiingle.user.api.profile.core.UserProfile;
+import net.miiingle.user.api.shared.rest.PageRequest;
+import net.miiingle.user.api.shared.rest.PagedResource;
+
+import java.util.stream.Collectors;
 
 @Tag(name = "User Profile")
 @RequiredArgsConstructor
@@ -29,6 +32,15 @@ public class ProfileAPI {
     @Get(uri="/{userId}")
     public PublicProfile displayPublicProfile(String userId) {
         return new PublicProfile(profileService.findById(userId));
+    }
+
+    @Secured(SecurityRule.IS_ANONYMOUS)
+    @Get(uri = "/search/byName")
+    public PagedResource<PublicProfile> searchByName(String name, @RequestBean PageRequest page) {
+        var results = profileService.searchByName(name);
+        var contents = results.getContent().stream().map(PublicProfile::new).collect(Collectors.toList());
+
+        return PagedResource.from(Page.of(contents, results.getPageable(), results.getTotalSize()));
     }
 
     @Secured(SecurityRule.IS_AUTHENTICATED)
