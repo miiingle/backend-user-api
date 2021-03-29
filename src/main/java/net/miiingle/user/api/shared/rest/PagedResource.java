@@ -18,10 +18,11 @@ public class PagedResource<T> extends AbstractResource<PagedResource<T>> {
 
         Integer current;
         Integer count;
+        Integer size;
         Long total;
 
         public static Page from(io.micronaut.data.model.Page<?> page) {
-            return new Page(page.getPageNumber(), page.getTotalPages(), page.getTotalSize());
+            return new Page(page.getPageNumber(), page.getTotalPages(), page.getSize(), page.getTotalSize());
         }
     }
 
@@ -32,4 +33,5 @@ public class PagedResource<T> extends AbstractResource<PagedResource<T>> {
         Page page = Page.from(pageParam);
         return new PagedResource<T>(pageParam.getContent(), page);
     }
+
 }

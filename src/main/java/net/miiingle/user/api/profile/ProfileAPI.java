@@ -17,6 +17,8 @@ import net.miiingle.user.api.profile.core.UserProfile;
 import net.miiingle.user.api.shared.rest.PageRequest;
 import net.miiingle.user.api.shared.rest.PagedResource;
 
+import javax.validation.Valid;
+import javax.validation.constraints.NotBlank;
 import java.util.stream.Collectors;
 
 @Tag(name = "User Profile")
@@ -36,8 +38,8 @@ public class ProfileAPI {
 
     @Secured(SecurityRule.IS_ANONYMOUS)
     @Get(uri = "/search/byName")
-    public PagedResource<PublicProfile> searchByName(String name, @RequestBean PageRequest page) {
-        var results = profileService.searchByName(name);
+    public PagedResource<PublicProfile> searchByName(@NotBlank String name, @Valid @RequestBean PageRequest page) {
+        var results = profileService.searchByName(name, page.asPageable());
         var contents = results.getContent().stream().map(PublicProfile::new).collect(Collectors.toList());
 
         return PagedResource.from(Page.of(contents, results.getPageable(), results.getTotalSize()));

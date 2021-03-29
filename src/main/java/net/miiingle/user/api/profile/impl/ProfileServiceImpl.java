@@ -22,8 +22,8 @@ public class ProfileServiceImpl implements ProfileService {
     }
 
     @Override
-    public Page<UserProfile> searchByName(String name) {
-        return repository.findAll(Pageable.UNPAGED);
+    public Page<UserProfile> searchByName(String name, Pageable page) {
+        return repository.findAll(page);
     }
 
     @Override
