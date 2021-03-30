@@ -6,20 +6,23 @@ import io.micronaut.data.model.Pageable;
 import io.micronaut.http.annotation.QueryValue;
 import lombok.Data;
 
+import javax.validation.constraints.Max;
 import javax.validation.constraints.Positive;
+import javax.validation.constraints.PositiveOrZero;
 
 @Data
 @Introspected
 public class PageRequest {
 
     @Nullable
-    @Positive
+    @PositiveOrZero
     @QueryValue
     private Integer page;
 
     @Nullable
     @Positive
     @QueryValue
+    @Max(100)
     private Integer size;
 
     public Pageable asPageable() {
