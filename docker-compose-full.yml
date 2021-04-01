@@ -2,7 +2,7 @@ version: '3.7'
 services:
 
   postgres:
-    image: postgres:11.10-alpine
+    image: miiingle.net.misc:rds-simulator-latest
     environment:
       POSTGRES_USER: testfull
       POSTGRES_PASSWORD: testfullpass123
@@ -15,7 +15,7 @@ services:
       retries: 10
 
   liquibase:
-    image: miiingle-user-api-liquibase:latest
+    image: miiingle.net.misc:liquibase-user-api-latest
     environment:
       URL: 'jdbc:postgresql://postgres:5432/postgres?currentSchema=public'
       USERNAME: testfull
@@ -25,12 +25,12 @@ services:
         condition: service_healthy
 
   zipkin:
-    image: openzipkin/zipkin:latest
+    image: miiingle.net.misc:zipkin-simulator-latest
     ports:
       - 9411:9411
 
   postgres_keycloak:
-    image: postgres:11.10-alpine
+    image: miiingle.net.misc:rds-simulator-latest
     environment:
       POSTGRES_USER: keycloak
       POSTGRES_PASSWORD: keycloak_secret
@@ -44,7 +44,7 @@ services:
     depends_on:
       postgres_keycloak:
         condition: service_healthy
-    image: quay.io/keycloak/keycloak:12.0.4
+    image: miiingle.net.misc:keycloak-simulator-latest
     ports:
       - 8081:8080
     healthcheck:
@@ -63,8 +63,7 @@ services:
       PROXY_ADDRESS_FORWARDING: "true"
 
   user-api:
-#    image: '327229172692.dkr.ecr.us-east-1.amazonaws.com/miiingle.net.user_api:latest-native'
-    image: 'user-api:latest'
+    image: miiingle.net.user_api:latest
     depends_on:
       keycloak:
         condition: service_healthy

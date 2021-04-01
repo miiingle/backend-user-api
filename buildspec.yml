@@ -17,7 +17,7 @@ phases:
       - docker images
   build:
     commands:
-      - docker build -t miiingle-user-api-liquibase:latest src/main/resources/liquibase
+      - docker build -t miiingle.net.misc:liquibase-user-api-latest src/main/resources/liquibase
       - docker-compose up -d
       - ./wait-for-keycloak.sh
       - ./gradlew clean test
